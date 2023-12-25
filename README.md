@@ -33,3 +33,37 @@
 * Open a web browser and type in the URL - ```127.0.0.1:8000```
 * Register to the website and use the credentials to Login.
 
+## Screenshots
+### Home Page
+![HomePage](https://github.com/aka-nikko/CMS-Newsletter/blob/main/screenshots/home.png)
+
+### Login
+![HomePage](https://github.com/aka-nikko/CMS-Newsletter/blob/main/screenshots/login.png)
+
+### Register
+![HomePage](https://github.com/aka-nikko/CMS-Newsletter/blob/main/screenshots/register.png)
+
+### Newsletters
+![HomePage](https://github.com/aka-nikko/CMS-Newsletter/blob/main/screenshots/allnewsletters.png)
+
+### Newsletter
+![HomePage](https://github.com/aka-nikko/CMS-Newsletter/blob/main/screenshots/newsletter.png)
+
+### Add Submissions
+![HomePage](https://github.com/aka-nikko/CMS-Newsletter/blob/main/screenshots/addsubmission.png)
+
+### Add Submissions
+![HomePage](https://github.com/aka-nikko/CMS-Newsletter/blob/main/screenshots/addsubmission1.png)
+
+### Submissions
+![HomePage](https://github.com/aka-nikko/CMS-Newsletter/blob/main/screenshots/allsubmissions.png)
+
+### Editing
+![HomePage](https://github.com/aka-nikko/CMS-Newsletter/blob/main/screenshots/editing.png)
+
+### Reordering
+![HomePage](https://github.com/aka-nikko/CMS-Newsletter/blob/main/screenshots/reordering.png)
+
+
+
+
