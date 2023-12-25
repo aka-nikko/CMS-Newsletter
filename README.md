@@ -10,7 +10,7 @@
 * Users :
   - Normal Users - Can see all newsletters (No Registration Required).
   - Contributors  - Can submit drafts for newsletter for approval. (Registration Required)
-  - Admin - Can approve drafts and edit multiple drafts them into final draft and upload newsletter.
+  - Publisher - Can approve drafts and edit multiple drafts them into final draft and upload newsletter.
 * CKEditor - A rich text editor with many features.
 
 ## Requirements
