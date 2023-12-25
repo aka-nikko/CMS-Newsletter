@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!--=============== STYLESHEETS ===============-->
+{% block stylesheets %}
+<style>
+    .side-by-side {
+        display: inline-block;
+        vertical-align: top;
+    }
+</style>
+{% endblock stylesheets %}
+
+<!--=============== CONTENT ===============-->
+{% block content %}
+<section class="nic-publish-banner">
+    <h1>Edit Submissions</h1>
+</section>
+
+{% if editing %}
+<div class="nic-issue-container">
+
+
+    <div class="modal fade" id="reorderModal" tabindex="-1" aria-labelledby="reorderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="reorderModalLabel" style="margin-left: 350px;">Reorder</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div><br>
+            <div class="modal-body">
+                <div style="display: flex;justify-content: center;width: 100%;">
+                    <form method="post" class="side-by-side" style="width: 70%;">
+                    {% csrf_token %}
+                        <ul class="drag-sort-enable">
+                        {% for submission in editing %}
+                        {% if submission.is_sent_for_editing %}
+                        <li><div class="col-md-6 nic-editsub-subs">
+                        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="height: 100px;margin-bottom: 10px !important;">
+                                <div style="background-color: rgb(215, 239, 240);padding: 10px;" class="col d-flex flex-column position-static" style="padding: 5px !important;">
+                                    <strong class="mb-0">{{ submission.topic }}</strong>
+                                    <strong class="mb-0">{{ submission.title }}</strong>
+                                    <p style="margin-bottom: 5px;font-size: 12px;">{{ submission.subtext }}</p>
+                                    <input type="hidden" name="submission_id" value="{{ submission.id }}">
+                                </div>
+                                <div class="col-auto d-none d-lg-block">
+                                    <img class="nic-edit-img" style="width: 100px;" src="{{ submission.thumbnail.url }}">
+                                </div>
+                            </div>
+                        </div></li>
+                        {% endif %}
+                        {% endfor %}
+                        </ul><br>
+                        <button type="submit" name="reorder" class="btn btn-primary form-control nic-publish-submit" style="width: 200px;">Reorder</button>
+                    </form>
+                    
+                    <div class="side-by-side">
+                    {% for submission in editing %}
+                    {% if submission.is_sent_for_editing %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="col-md-6 nic-editsub-subs" style="width: fit-content !important;padding: 5px;padding-bottom: 9px;height: 110px;">
+                                <input type="hidden" name="submission_id" value="{{ submission.id }}">
+                                <button type="submit" name="remove" class="bi bi-patch-minus" style="font-size: 20px;border: none;background-color: white;border-radius: 20%;"></button>
+                        </div>
+                    </form>
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+    <form method="post" role="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="nic-issue-box">
+            {{form.media}}
+            <textarea id="ckeditor" name="body">{{ combined_content }}</textarea>
+        </div>
+        <script>
+            CKEDITOR.replace('ckeditor', {
+                height: 500,
+            });
+        </script><br>
+
+        <div class="modal fade" id="publishModal" tabindex="-1" aria-labelledby="publishModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="publishModalLabel">Publish</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div><br>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="btn btn-primary nic-publish-btn-text">Title</span>
+                            <input type="text" class="form-control" {% if form.instance.pk %}value="{{ form.instance.title }}"{% endif %} name="title" placeholder="Enter a Title" maxlength="50" required/>
+                        </div>
+                    </div><br>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="btn btn-primary nic-publish-btn-text">Subtext</span>
+                            <input type="text" class="form-control" {% if form.instance.pk %}value="{{ form.instance.subtext }}"{% endif %} name="subtext" placeholder="Enter a Subtext" maxlength="255" required/>
+                        </div>
+                    </div><br>
+                    <div class="nic-publish-flexwrap">
+                        <div class="form-group nic-publish-flex">
+                            <div class="input-group">
+                                <span class="btn btn-primary nic-publish-btn-text">Volume</span>
+                                <input type="number" class="form-control" {% if form.instance.volume %}value="{{ form.instance.volume }}"{% else %}value="0"{% endif %} name="volume" required/>
+                            </div>
+                        </div>
+                        <div class="form-group nic-publish-flex">
+                            <div class="input-group">
+                                <span class="btn btn-primary nic-publish-btn-text">Issue</span>
+                                <input type="number" class="form-control" {% if form.instance.issue %}value="{{ form.instance.issue }}"{% else %}value="0"{% endif %} name="issue" required/>
+                            </div>
+                        </div>
+                    </div><br>
+                    <div class="form-group"><div class="input-group">
+                        <span class="btn btn-primary nic-publish-btn-text">Quarter</span>
+                        <select name="quarter" id="quarter" class="form-control" required>
+                            <option value="0">Select</option>
+                            {% for item in quarter %}
+                            <option value="{{ item.id }}"{% if form.instance.quarter == item %}selected{% endif %}>{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                    </div><br>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="btn btn-primary btn-file nic-browse-thumbnail">Browse Thumbnail
+                                <span class="input-group-btn">
+                                    <input type="file" name="thumbnail" id="file-upload">
+                                </span>
+                            </span>
+                            <div class="form-control" id="file-upload-filename">{% if is_editing %}Image: {{ form.instance.thumbnail }}{% else %}Not Selected{% endif %}</div>
+                        </div>
+                    </div><br>
+                    <div class="form-group">
+                        <input type="submit" name="publish_all" value="{% if is_editing %}Update{% else %}Publish{% endif %}" class="btn btn-primary form-control nic-publish-submit" />
+                    </div><br>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="form-group" style="display: flex;justify-content: center;">
+            <input type="button" id="showreorderModal" value="Reorder" class="btn btn-primary" style="width: 100px;"/>
+            <input type="button" id="showPublishModal" value="Next" class="btn btn-primary" style="margin-left: 1%;width: 100px;"/>
+        </div><br>      
+    </form>
+</div>
+{% else %}
+    <div class="nic-newsletter-empty">
+        <h3>No Submissions Sent for Editing</h3>
+    </div>
+{% endif %}
+
+{% endblock content %}
+
+
+<!--=============== MAIN JS ===============-->
+{% block javascript %}
+<script>
+  $('#showPublishModal').click(function () {
+    $('#publishModal').modal('show');
+  });
+  $('#showreorderModal').click(function () {
+    $('#reorderModal').modal('show');
+  });
+</script>
+{% endblock javascript %}

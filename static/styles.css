@@ -1,0 +1,807 @@
+:root {
+    --body-color: black;
+    --body-background-color: #ececec;
+    --loader-wrapper-bg-color: #242f3f;
+    --loader-inner-bg-color: #fff;
+    --head-background-color: rgb(201, 222, 255);
+    --head-login-color: black;
+    --head-time-color: gray;
+    --nic-logo-container-bg-color: white;
+    --nic-issue-time-color: #595959;
+    --nic-nav-bg-color: rgb(36, 131, 197);
+    --nic-search-color: black;
+    --nic-dropdown-bg-color: rgb(27, 90, 136);
+    --nic-dropdown-admin-bg-color: rgb(27, 90, 136);
+    --nic-dropdown-item-hover-bg-color: rgb(36, 131, 197);
+
+    --btn-file-bg-color: rgb(36, 131, 197);
+    --nic-publish-submit-bg-color: rgb(36, 131, 197);
+    --nic-issue-head-bg-color: #FCFCFC;
+    --nic-issue-head-i-color: #A6A6A6;
+    --nic-issue-head-button-bg-color: #fff;
+    --nic-issue-name-color: #283035;
+    --nic-issue-title-bg-color: #FFF;
+    --nic-issue-title-color: #595959;
+    --nic-issue-content-color: white;
+    --nic-footer-bg-color: #002341;
+
+    --text-primary-emphasis-color: rgb(0, 0, 88);
+    --flex-md-row-bg-color: white;
+    --btn-primary-bg-color: rgb(36, 131, 197);
+    --form-control-bg-color: white;
+    --square-container-bg: linear-gradient(to left, #002c7d, #1393ee);
+
+    --modal-content-bg-color: white;
+    --modal-head-color: rgb(149, 200, 236);
+}
+
+.dark-mode{
+    --body-color: white;
+    --body-background-color: #1a1a1a;
+    --loader-wrapper-bg-color: #242f3f;
+    --loader-inner-bg-color: #fff;
+    --head-background-color: rgb(77, 77, 77);
+    --head-login-color: rgb(255, 255, 255);
+    --head-time-color: rgb(255, 255, 255);
+    --nic-logo-container-bg-color: #2c2c2c;
+    --nic-issue-time-color: #595959;
+    --nic-nav-bg-color: rgb(51, 51, 51);
+    --nic-search-color: white;
+    --nic-dropdown-bg-color: rgb(58, 58, 58);
+    --nic-dropdown-admin-bg-color: rgb(58, 58, 58);
+    --nic-dropdown-item-hover-bg-color: rgb(94, 94, 94);
+
+    --btn-file-bg-color: rgb(36, 131, 197);
+    --nic-publish-submit-bg-color: rgb(36, 131, 197);
+    
+    --nic-issue-head-bg-color: #313131;
+    --nic-issue-head-i-color: #fdfdfd;
+    --nic-issue-head-button-bg-color: #313131;
+    --nic-issue-name-color: #ffffff;
+    --nic-issue-title-bg-color: #4d4d4d;
+    --nic-issue-title-color: #f3f3f3;
+    --nic-issue-content-color: #5e5e5e;
+    --nic-footer-bg-color: #24262b;
+
+    --text-primary-emphasis-color: white;
+    --flex-md-row-bg-color: #313131;
+    --btn-primary-bg-color: rgb(77, 77, 77);
+    --form-control-bg-color: rgb(138, 138, 138);
+    --square-container-bg: linear-gradient(to left, #222222, #888888);
+
+    --modal-content-bg-color: #3f3f3f;
+    --modal-head-color: rgb(53, 53, 53);
+}
+
+.form-control{
+    background-color: var(--form-control-bg-color);
+}
+.btn-primary{
+    background-color: var(--btn-primary-bg-color) !important;
+    border-color: var(--btn-primary-bg-color) !important;
+}
+.text-primary-emphasis{
+    color: var(--text-primary-emphasis-color) !important;
+}
+.flex-md-row{
+    background-color: var(--flex-md-row-bg-color) !important;
+    border-color: var(--flex-md-row-bg-color) !important;
+}
+
+body {
+    background-color: var(--body-background-color);
+    color: var(--body-color);
+}
+
+/*=============== PRELOADER ===============*/
+.loader-wrapper {
+    z-index: 10000;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--loader-wrapper-bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    border: 4px solid #fff;
+    animation: loader 2s infinite ease;
+}
+
+.loader-inner {
+    vertical-align: top;
+    display: inline-block;
+    width: 100%;
+    background-color: var(--loader-inner-bg-color);
+    animation: loader-inner 2s infinite ease-in;
+}
+
+@keyframes loader {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(180deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    75% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes loader-inner {
+    0% {
+        height: 0%;
+    }
+    25% {
+        height: 0%;
+    }
+    50% {
+        height: 100%;
+    }
+    75% {
+        height: 100%;
+    }
+    100% {
+        height: 0%;
+    }
+}
+
+/*=============== MODAL ===============*/
+.modal-content{
+    background-color: var(--modal-content-bg-color) !important;
+}
+.modal-header{
+    background-color: var(--modal-head-color);
+}
+.modal-title{
+    margin-left: 200px;
+}
+.message-info{
+    color: black;
+    font-size: larger;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+}
+.message-success{
+    color: rgb(0, 75, 0);
+    font-size: larger;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+}
+.message-error{
+    color: rgb(122, 0, 0);
+    font-size: larger;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+}
+@media (max-width: 830px) {
+    .modal-title{
+        margin-left: 0 !important;
+    }
+}
+
+/*=============== HEADER-TOPLINE ===============*/
+.head {
+    background-color: var(--head-background-color);
+    width: 100%;
+    font-size: 14px;
+    display: inline-block;
+    padding: 5px;
+}
+.head-login {
+    color: var(--head-login-color);
+    float: right !important;
+    padding-right: 10px;
+    text-decoration: none;
+}
+.head-time {
+    font-size: 13px;
+    font-weight: 500;
+    padding-left: 10px;
+    color: var(--head-time-color);
+    float: left;
+    margin: 0 !important;
+}
+
+/*=============== HEADER-LOGO ===============*/
+.nic-logo-container {
+    background-color: var(--nic-logo-container-bg-color);
+    overflow: hidden;
+    margin-top: -1%;
+}
+.nic-logo-left {
+    float: left;
+    padding: 20px;
+}
+.nic-logo-right {
+    float: right;
+    padding: 20px;
+}
+.satyamev {
+    height: 100px;
+}
+.nic-logo {
+    margin-top: 7%;
+    height: 65px;
+}
+
+@media (max-width: 830px) {
+    .nic-logo-left h2 {
+        font-size: 15px;
+    }
+    .nic-logo-right {
+        padding: 10px;
+    }
+    .satyamev {
+        height: 80px;
+    }
+}
+
+@media (max-width: 610px) {
+    .nic-logo-right {
+        display: none;
+    }
+    .nic-login-container {
+        width: 100%;
+    }
+}
+
+/*=============== HEADER-NAVIGATION ===============*/
+.nic-nav {
+    top: -1px;
+    width: 100%;
+    background-color: var(--nic-nav-bg-color);
+}
+.nic-search {
+    color: var(--nic-search-color);
+    background-color: white;
+}
+.nic-dropdown {
+    background-color: var(--nic-dropdown-bg-color);
+    margin-left: -5px;
+}
+.nic-dropdown-admin {
+    background-color: var(--nic-dropdown-admin-bg-color);
+    margin-left: -20px;
+}
+.nic-dropdown-item:hover {
+    background-color: var(--nic-dropdown-item-hover-bg-color);
+}
+.nav-text-align {
+    margin-right: 10px;
+}
+
+@media (max-width: 830px) {
+    .nic-dropdown {
+        margin-left: 0;
+    }
+    .nic-dropdown-admin {
+        margin-left: 0;
+    }
+}
+
+/*=============== BANNER ===============*/
+.nic-publish-banner {
+    width: 100%;
+    background-image: linear-gradient(rgba(27, 56, 83, 0.7), rgba(0, 0, 0, 0.7)),
+                            url(/static/images/banner.jpg);;
+    background-size: cover;
+    background-position: bottom;
+    text-align: center;
+    padding: 50px 0;
+    background-attachment: fixed;
+}
+
+@media (max-width: 830px) {
+    .nic-publish-banner {
+        background-attachment: local;
+    }
+}
+
+/*=============== INDEX-PAGE ===============*/
+.nic-text {
+    padding: 50px;
+    width: 100%;
+}
+.nic-text p {
+    text-align: justify;
+}
+.nic-image {
+    width: 400px;
+    float: right;
+    margin-top: -60px;
+    margin-left: 30px;
+}
+.nic-read-here {
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.nic-index-latest {
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.nic-index-latest-img {
+    width: 100%;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: rgb(182, 182, 182);
+}
+.form-control:focus {
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(36, 131, 197, 0.3);
+}
+
+@media (max-width: 830px) {
+    .nic-text h2 {
+        font-size: large;
+    }
+    .nic-image {
+        width: 100%;
+        margin-top: 0px;
+        margin-right: 30px;
+    }
+    .testing {
+        display: block;
+    }
+}
+
+/*=============== LOGIN-PAGE ===============*/
+.nic-login-container {
+    padding: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+.nic-login-logo {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+.nic-login-text {
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+@media (max-width: 830px) {
+    .nic-login-container {
+        padding: 50px;
+        width: 100%;
+    }
+    .nic-login-logo {
+        width: 100%;
+    }
+}
+
+/*=============== SUBMISSIONS-PAGE ===============*/
+.nic-submission-quarter {
+    width: 10% !important;
+}
+.nic-submission-button {
+    margin-left: 1% !important;
+}
+.nic-submissions-cont{
+    width: 70% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+.nic-submission-btn-text {
+    width: 160px;
+    pointer-events: none;
+    background-color: var(--btn-file-bg-color);
+}
+
+@media (max-width: 830px) {
+    .nic-submission-quarter {
+        width: 100% !important;
+    }
+    .nic-submission-button {
+        margin-top: 5%;
+        margin-left: 0 !important;
+    }
+    .nic-submission-btn-text {
+        width: 30%;
+        pointer-events: none;
+        background-color: var(--btn-file-bg-color);
+    }
+}
+@media (max-width: 1000px) {
+    .nic-submissions-cont{
+        width: 100% !important;
+    }
+}
+
+
+/*=============== EDIT-SUBMISSIONS-PAGE ===============*/
+ul.drag-sort-enable {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.drag-sort-enable li {
+    height: 110px;
+    width: 100% !important;
+    border-radius: 3px;
+    list-style: none;
+    cursor: grab;
+}
+.drag-sort-enable li.drag-sort-active {
+    background: transparent;
+    color: transparent;
+    cursor: grab; 
+}
+span.drag-sort-active {
+    background: transparent;
+    color: transparent;
+}
+.nic-editsub-subs{
+    width: 100% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+.nic-edit-img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+@media (max-width: 830px) {
+    .nic-editsub-subs{
+        width: 100% !important;
+    }
+}
+
+/*=============== NEWSLETTERS-PAGE ===============*/
+.nic-newsletter {
+    padding: 50px;
+}
+.nic-newsletter-img {
+    width: 250px;
+    height: 300px;
+    padding: 5px;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: center;
+}
+.nic-newsletter-empty {
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 50px;
+}
+
+/*=============== PUBLISH-PAGE ===============*/
+.nic-publish-banner h1 {
+    color: #fff;
+    padding: 20px;
+}
+.nic-publish-fields {
+    margin-top: 50px;
+    width: 60%;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    width: 160px;
+    background-color: var(--btn-file-bg-color);
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+.nic-publish-btn-text {
+    width: 160px;
+    pointer-events: none;
+    background-color: var(--btn-file-bg-color);
+}
+.nic-publish-flexwrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+}
+.nic-publish-flex {
+    flex: 1;
+    min-width: 0;
+}
+.nic-publish-submit {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--nic-publish-submit-bg-color);
+}
+
+@media (max-width: 830px) {
+    .nic-publish-fields {
+        width: 80%;
+    }
+    .nic-publish-btn-text {
+        width: 75px;
+        pointer-events: none;
+    }
+    .btn-file {
+        width: 95px;
+    }
+    .nic-browse-thumbnail {
+        width: 165px;
+    }
+    .nic-add-topic {
+        width: 100px;
+    }
+}
+
+/*=============== ISSUE-PAGE ===============*/
+.nic-issue-container {
+    margin: 60px auto 15px;
+    width: 70%;
+}
+
+.nic-issue-box .nic-issue-head {
+    background: var(--nic-issue-head-bg-color);
+    padding: 10px 12px;
+    border-bottom: 1px solid #E5E5E5;
+    overflow: hidden;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+}
+
+.nic-issue-box .nic-issue-head i {
+    float: right;
+    margin-left: 14px;
+    position: relative;
+    top: 2px;
+    color: var(--nic-issue-head-i-color);
+    cursor: pointer;
+    -webkit-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
+    transition: color 0.3s ease;
+}
+
+.nic-issue-box .nic-issue-head button {
+    float: right;
+    margin-left: 10px;
+    position: relative;
+    top: 2px;
+    color: var(--nic-issue-head-i-color);
+    cursor: pointer;
+    border: none;
+    background-color: var(--nic-issue-head-button-bg-color);
+    -webkit-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
+    transition: color 0.3s ease;
+}
+
+.nic-issue-box .nic-issue-head i:hover {
+    color: #03658c;
+}
+
+.nic-issue-box .nic-issue-name {
+    color: var(--nic-issue-name-color);
+    font-size: 14px;
+    font-weight: 700;
+    float: left;
+    margin-right: 10px;
+}
+
+.nic-issue-box .nic-issue-head span {
+    float: left;
+    color: #999;
+    font-size: 13px;
+}
+.nic-issue-box .nic-issue-title {
+    background: var(--nic-issue-title-bg-color);
+    color: var(--nic-issue-title-color);
+    font-weight: bold;
+    font-size: 25px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+    border-bottom: 1px solid #E5E5E5;
+    -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;
+}
+.nic-issue-box .nic-issue-content {
+    background: #FFF;
+    font-size: 15px;
+    background-color: var(--nic-issue-content-color);
+    padding: 30px;
+    border-bottom: 1px solid #E5E5E5;
+    -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;
+}
+.nic-issue-box .nic-issue-time {
+    background: #FFF;
+    font-size: 13px;
+    color: var(--nic-issue-time-color);
+    padding: 5px;
+    border-bottom: 1px solid #E5E5E5;
+    -webkit-border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+    border-radius: 0 0 4px 4px;
+}
+
+@media (max-width: 830px) {
+    .nic-issue-content img {
+        padding: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 auto !important;
+        display: block !important;
+    }
+    .nic-issue-container {
+        width: 95%;
+    }
+}
+
+/*=============== FOOTER ===============*/
+.square-container {
+    position: relative;
+    width: 100%;
+    height: 76px;
+    background-image: var(--square-container-bg);
+    overflow: hidden;
+}
+.square {
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    transform: rotateZ(45deg);
+}
+
+.square1 {
+    left: 35%;
+    top: -58px;
+    background-image: linear-gradient(
+        130deg,
+        rgba(255, 255, 255, 0.2),
+        rgba(255, 255, 255, 0.0)
+    );
+}
+.square2 {
+    left: 43%;
+    top: -58px;
+    background-image: linear-gradient(
+        130deg,
+        rgba(255, 255, 255, 0.2),
+        rgba(255, 255, 255, 0.0)
+    );
+}
+.square3 {
+    width: 150px;
+    height: 150px;
+    left: 49%;
+    top: -30px;
+    background-image: linear-gradient(
+        130deg,
+        rgba(255, 255, 255, 0.0),
+        rgba(255, 255, 255, 0.2)
+    );
+}
+.square4 {
+    left: 51%;
+    top: -58px;
+    background-image: linear-gradient(
+        130deg,
+        rgba(255, 255, 255, 0.0),
+        rgba(255, 255, 255, 0.2)
+    );
+}
+
+.nic-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+.nic-footer-col ul {
+    list-style: none;
+    margin-left: -30px;
+}
+.nic-footer {
+    background-color: var(--nic-footer-bg-color);
+    padding: 30px 0;
+}
+.nic-footer-col {
+    width: 25%;
+    padding: 0 15px;
+}
+.nic-footer-col h4 {
+    font-size: 18px;
+    color: #ffffff;
+    text-transform: capitalize;
+    margin-bottom: 35px;
+    font-weight: 500;
+    position: relative;
+}
+.nic-footer-col h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: rgb(36, 131, 197);
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+.nic-footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+.nic-footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+    transition: all 0.3s ease;
+}
+.nic-footer-col ul li a:hover {
+    color: rgb(36, 131, 197);
+    padding-left: 8px;
+}
+.nic-footer-col .social-links a {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: all 0.5s ease;
+}
+.nic-footer-col .social-links a:hover {
+    color: #24262b;
+    background-color: rgb(36, 131, 197);
+}
+.copyright {
+    font-size: 12px;
+    font-weight: 200;
+    color: #bbbbbb;
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 830px) {
+    .nic-footer-col {
+        width: 50%;
+        margin-bottom: 30px;
+    }
+}

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+    <html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {% load static %}
+        <!--=============== TITLE ===============-->
+        <title>Newsletter</title>
+
+        <!--=============== WEBSITE ICON ===============-->
+        <link rel="shortcut icon" href="{% static 'icon.ico' %}" type="image/x-icon">
+
+        <!--=============== BOOTSTRAP ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+        <!--=============== LOCAL STYLESHEETS ===============-->
+        <link rel="stylesheet" href="{% static 'styles.css'%}">
+        {% block stylesheets %}
+
+        {% endblock stylesheets %}
+    </head>
+    
+    <body>
+      <!--========================= PRELOADER =========================-->
+      <div class="loader-wrapper" id="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+      </div>
+
+      <!--========================= FORM-ERRORS =========================-->
+      {% if form.errors %}
+      <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="margin-top: 10%;">
+          <div class="modal-content">
+          <div class="modal-header">
+              <h1 class="modal-title fs-5" id="messageModalLabel">Message</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body message-error">
+              <br>
+              {% for field in form %}
+                  {% for error in field.errors %}
+                      {{field.label}}:<br>{{error|escape}}<br>
+                  {% endfor %}
+              {% endfor %}
+              <br><br>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+          </div>
+      </div>
+      </div>
+      {% endif %}
+
+      <!--========================= MESSAGE-MODAL =========================-->
+      {% for message in messages %}
+      <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-top: 10%;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="messageModalLabel">Message</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body message-{{message.tags}}">
+              <br>
+              {{message}}
+              <br><br>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!--========================= TOP =========================-->
+      <div class="head">
+      <p class="head-time">{% now 'D, d M Y P' %}</p>
+      <a class="head-login" href="#" id="change-theme"><i class="bi bi-moon-fill"></i></a>
+      {% if user.is_authenticated %}
+        <a class="dropdown">
+          <a class="dropdown-toggle head-login" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-fill"> {{user.first_name}}</i>
+          </a>
+          <ul style="z-index:9999" class="dropdown-menu">
+            <h6 class="dropdown-header">User Info</h6>
+            <li><a style="font-size:14px;color:gray" class="dropdown-item disabled" href="">Name: {{user.first_name}} {{user.last_name}}</a></li>
+            <li><a style="font-size:14px;color:gray" class="dropdown-item disabled" href="">Username: {{user.username}}</a></li>
+            <li><a style="font-size:14px;color:gray" class="dropdown-item disabled" href="">Role: {% if user.is_superuser %}Publisher{% else %}Contributer{% endif %}</a></li>
+            <li><a style="font-size:14px;color:gray" class="dropdown-item disabled" href="">Last Login: {{user.last_login}}</a></li>
+            <div class="dropdown-divider"></div>
+            <li><a class="dropdown-item" href="/logout"><i class="bi bi-door-open-fill"> Logout</i></a></li>
+          </ul>
+        </a>
+      {% else %}
+        <a class="head-login" href="/register"><i class="bi bi-credit-card-fill"> Register </i></a>
+        <a class="head-login" href="/login"><i class="bi bi-person-fill"> Login</i></a>
+      {% endif %}
+      </div>
+      
+      <!--========================= LOGO =========================-->
+      <div class="nic-logo-container">
+        <div class="nic-logo-left">
+            <a href="/"><img class="satyamev" title="Home" src="{% static '/images/logo.png' %}"></a>
+        </div>
+        <div class="nic-logo-left">
+            <p style="margin-top: 20px;margin-left: -20px;">A Quarterly Newsletter</p>
+            <h2 style="margin-top: -20px;margin-left: -20px;">Voyage through Perspectives</h2>
+        </div>
+        <div class="nic-logo-right">
+          <a href="/"><img class="nic-logo" title="NIC" src="{% static '/images/nikko.png' %}"></a>
+        </div>
+      </div>
+
+      <!--========================= NAV-BAR =========================-->
+      <nav class="navbar navbar-expand-lg nic-nav sticky-top" data-bs-theme="dark">
+          <div class="container-fluid">
+            <a class="nav-text-align" href="/"><img src="{% static '/images/nikko-logo.png' %}"  alt="NIC" height="30"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active nav-text-align" aria-current="page" href="/">Home</a>
+                </li>
+                {% if user.is_superuser %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link active dropdown-toggle nav-text-align" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Newsletter
+                  </a>
+                  <ul class="dropdown-menu nic-dropdown-admin">
+                    <li><a class="dropdown-item nic-dropdown-item" href="/publish">Publish Newsletter</a></li>
+                    <li><a class="dropdown-item nic-dropdown-item" href="/newsletters">All Newsletters</a></li>
+                  </ul>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                  <a class="nav-link active nav-text-align" aria-current="page" href="/newsletters">Newsletter</a>
+                </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link active dropdown-toggle nav-text-align" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Admin
+                  </a>
+                  <ul class="dropdown-menu nic-dropdown-admin">
+                    <li><a class="dropdown-item nic-dropdown-item" href="/addtopic">Add Quarterly Topics</a></li>
+                    <li><a class="dropdown-item nic-dropdown-item" href="/newsubmission">Submit Article</a></li>
+                    <li><a class="dropdown-item nic-dropdown-item" href="/submissions">View Submissions</a></li>
+                    <li><a class="dropdown-item nic-dropdown-item" href="/editsubmissions">Edit Submissions</a></li>
+                  </ul>
+                </li>
+                {% else %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link active dropdown-toggle nav-text-align" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Submission
+                  </a>
+                  <ul class="dropdown-menu nic-dropdown-admin">
+                    <li><a class="dropdown-item nic-dropdown-item" href="/newsubmission">Submit Article</a></li>
+                    <li><a class="dropdown-item nic-dropdown-item" href="/submissions">View Submissions</a></li>
+                  </ul>
+                </li>
+                {% endif %}
+                {% else %}
+                {% endif %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link active dropdown-toggle nav-text-align" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Announcements
+                  </a>
+                  <ul class="dropdown-menu nic-dropdown">
+                    <li><a class="dropdown-item nic-dropdown-item" href="#">News</a></li>
+                    <li><a class="dropdown-item nic-dropdown-item" href="#">Events</a></li>
+                    <li><a class="dropdown-item nic-dropdown-item" href="#">Awards</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active nav-text-align" aria-current="page" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Contact</a>
+                </li>
+              </ul>
+              <form class="d-flex" role="search" method="GET" action="{% url 'search' %}">
+                {% csrf_token %}
+                <input class="form-check me-2 nic-search" type="search" name="search_query" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+			</div>
+          </div>
+      </nav>
+
+      <!--=============== CONTENT ===============-->
+      {% block content %}
+      
+      {% endblock content %}
+      
+      <!--=============== FOOTER ===============-->
+      <section class="square-container">
+        <div class="square square1"></div>
+        <div class="square square2"></div>
+        <div class="square square3"></div>
+        <div class="square square4"></div>
+      </section>
+      <footer class="nic-footer">
+        <div class="container">
+          <div class="nic-row">
+            <div class="nic-footer-col">
+              <h4>Company</h4>
+              <ul>
+                <li><a href="#">Our Services</a></li>
+                <li><a href="#">Infrastructure</a></li>
+                <li><a href="#">Photo Gallery</a></li>
+                <li><a href="#">Website Policy</a></li>
+              </ul>
+            </div>
+            <div class="nic-footer-col">
+              <h4>About Us</h4>
+              <ul>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Organization Structure</a></li>
+                <li><a href="#">Directory</a></li>
+              </ul>
+            </div>
+            <div class="nic-footer-col">
+              <h4>Get Help</h4>
+              <ul>
+                <li><a href="#">Help</a></li>
+                <li><a href="#">Helpdesk</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+            <div class="nic-footer-col">
+              <h4>follow us</h4>
+              <div class="social-links">
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-youtube"></i></a>
+                <a href="#"><i class="bi bi-instagram"></i></a>
+                <a href="#"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="container">
+          <p class="copyright">Made By Anshul Verma</p>
+        </div>
+      </footer>
+
+      <!--=============== MAIN JS ===============-->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+      <script src="{% static 'scripts.js'%}"></script>
+      {% block javascript %}
+
+      {% endblock javascript %}
+    </body>
+</html>

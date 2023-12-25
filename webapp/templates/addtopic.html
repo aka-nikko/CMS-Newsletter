@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!--=============== STYLESHEETS ===============-->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+<!--=============== CONTENT ===============-->
+{% block content %}
+<section class="nic-publish-banner">
+    <h1>Add A New Topic</h1>
+</section>
+
+<div class="container nic-publish-fields">
+    <div class="row">
+      <div class="col-md-12">
+        <form method="post" role="form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.media}}
+            <div class="form-group"><div class="input-group">
+                <span class="btn btn-primary nic-publish-btn-text">Quarter</span>
+                <select name="quarter" id="quarter" class="form-control" required>
+                    <option value="0">Select</option>
+                    {% for item in quarter %}
+                    <option value="{{ item.id }}"{% if form.instance.quarter == "{{ item.id }}" %}selected{% endif %}>{{ item.name }}</option>
+                    {% endfor %}
+                </select>
+                </div>
+            </div><br>
+            <div class="form-group"><div class="input-group">
+                <span class="btn btn-primary nic-publish-btn-text">Topic</span>
+                <select name="topic" id="topic" class="form-control">
+                    {% for item in topic %}
+                    <option value="{{ item.quarter_id }}"{% if form.instance.quarter == "{{ item.quarter_id }}" %}selected{% endif %}>{{ item.name }}</option>
+                    {% endfor %}
+                </select>
+                </div>
+            </div><br>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="btn btn-primary nic-publish-btn-text nic-add-topic">Add Topic</span>
+                    <input type="text" class="form-control" name="name" required/>
+                </div>
+            </div><br>
+            <div class="form-group">
+                <input type="submit" name="Submit" value="ADD" class="btn btn-primary form-control nic-publish-submit" />
+            </div><br>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+<!--=============== MAIN JS ===============-->
+{% block javascript %}
+<script>
+$(document).ready(function(){
+    var quarter = $("#quarter");
+    var topic = $("#topic");
+    var $options = topic.find('option').clone();
+    topic.html('<option value="">Select</option>');
+    quarter.on('change', function() {
+        var selectedQuarter = this.value;
+        topic.html("");
+        if (selectedQuarter !== "") {
+            topic.html('<option value="">Select</option>');
+            $options.filter('[value="' + selectedQuarter + '"]').appendTo(topic);
+        }
+    }).trigger('change'); 
+});
+</script>
+{% endblock javascript %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!--=============== STYLESHEETS ===============-->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+<!--=============== CONTENT ===============-->
+{% block content %}
+<section class="nic-publish-banner">
+    <h1>Illuminate, Inform, Inspire</h1>
+</section>
+<div class="nic-text">
+    <h2>A Quarterly News Letter by NIKKO</h2><br>
+    <img class="nic-image" src="{% static 'images/himnic.png' %}">
+    <p>Our newsletter content management system is a comprehensive platform that revolutionizes the process of creating, 
+      organizing, and disseminating newsletters. At its core, it offers an intuitive and user-friendly interface, 
+      facilitating effortless content creation and editing. The system is equipped with a range of customizable 
+      templates, allowing users to craft visually appealing newsletters that align with their branding and 
+      communication goals.<br><br>
+      One of its key strengths lies in its versatility. It seamlessly integrates multimedia elements such as 
+      images, videos, and interactive content, enabling creators to enhance the engagement and impact of their 
+      newsletters. Additionally, the platform supports various formats and layouts, accommodating diverse content 
+      types and structures.<br><br>
+      Whether it's a small-scale newsletter campaign or a large-scale distribution strategy, our content management 
+      system is designed to scale seamlessly. Its robust architecture and user-centric features cater to the needs 
+      of both novice creators and experienced marketers, making it a powerful tool for effective newsletter management 
+      and audience engagement..</p>
+</div>
+
+{% if data %}
+<div class="nic-read-here">
+    <h2 style="text-align: center;">The Latest Issue Is Here</h2><br>
+    <div class="row mb-2 nic-index-latest">
+        <div class="col-md-6">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="background-color: rgb(255, 255, 255);">
+            <div class="col p-4 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-primary-emphasis">Volume: {{data.volume|stringformat:"02d"}}, Issue: {{data.issue|stringformat:"02d"}}</strong>
+              <h3 class="mb-0">{{data.title}}</h3>
+              <div class="mb-1 text-body-secondary">{{data.upload_time}}</div>
+              <p class="card-text mb-auto">{{data.subtext}}</p>
+              <a href="/newsletter/issue/{{data.id}}" class="icon-link gap-1 icon-link-hover stretched-link">
+                Continue reading
+              </a>
+            </div>
+            <div style="margin: auto;padding: 20px;" class="col-auto d-none d-lg-block testing">
+                <img class="nic-index-latest-img" src="{{data.thumbnail.url}}">
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}
+
+<!--=============== MAIN JS ===============-->
+{% block javascript %}
+
+{% endblock javascript %}

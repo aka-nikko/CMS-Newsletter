@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!--=============== STYLESHEETS ===============-->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+<!--=============== CONTENT ===============-->
+{% block content %}
+<section class="nic-publish-banner">
+    <h1>Illuminate, Inform, Inspire</h1>
+</section>
+<div class="nic-newsletter">
+    <h2>A Quarterly News Letter by NIKKO</h2><br>
+    {% if data %}
+    <div class="row mb-2">
+        {% for data in data %}
+        <div class="col-md-6">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="background-color: rgb(255, 255, 255);">
+            <div class="col p-4 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-primary-emphasis">Volume: {{data.volume|stringformat:"02d"}}, Issue: {{data.issue|stringformat:"02d"}} ({{data.quarter}})</strong>
+              <h3 class="mb-0">{{data.title}}</h3>
+              <div class="mb-1 text-body-secondary">{{data.upload_time}}</div>
+              <p class="card-text mb-auto">{{data.subtext}}</p>
+              <a href="{% url 'newsletter' data.id%}" class="icon-link gap-1 icon-link-hover stretched-link">
+                Continue reading
+              </a>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+                <img class="nic-newsletter-img" src="{{data.thumbnail.url}}">
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="nic-newsletter-empty">
+    <h3>No Newsletter Here</h3>
+    </div>
+    {% endif %}
+
+
+
+</div>
+{% endblock content %}
+
+<!--=============== MAIN JS ===============-->
+{% block javascript %}
+
+{% endblock javascript %}

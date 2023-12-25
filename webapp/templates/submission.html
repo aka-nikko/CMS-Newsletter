@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!--=============== STYLESHEETS ===============-->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+<!--=============== CONTENT ===============-->
+{% block content %}
+<section class="nic-publish-banner">
+  <h1>Reading Space</h1>
+</section>
+{% if user.is_authenticated %}
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Post</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Confirm Delete? This action is irreversable.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" name="delete" class="btn btn-primary">Delete</button>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="nic-issue-container">
+    <div class="nic-issue-box">
+        <div class="nic-issue-head">
+          <h6 class="nic-issue-name">{{data.quarter}} | {{data.topic}}<br>
+            <span style="font-weight: lighter;">{{data.upload_time}}</span></h6>
+            <button type="button" class="bi bi-trash" data-bs-toggle="modal" style="font-size: 20px;" data-bs-target="#deleteModal"></button>
+            <a href="{% url 'submissionupdate' data.id %}"><i style="font-size: 20px;" class="bi bi-pencil"></i></a>
+            {% if user.is_superuser %}
+            {% if data.is_sent_for_editing %}
+            <form method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="submission_id" value="{{ data.id }}">
+              <button type="submit" name="remove"  class="bi bi-patch-minus" style="font-size: 20px;"></button>
+            </form>
+            {% else %}
+            <form method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="submission_id" value="{{ data.id }}">
+              <button type="submit" name="send"  class="bi bi-patch-plus" style="font-size: 20px;"></button>
+            </form>
+            {% endif %}
+            {% endif %}
+        </div>
+        <div class="nic-issue-title">{{data.title}}</div>
+        <div class="nic-issue-title" style="font-size: 20px;">{{data.subtext}}</div>
+        <div class="nic-issue-content">{{data.body | safe}}</div>
+        <div class="nic-issue-time">Last Updated On: {{data.update_time}}</div>
+    </div>
+</div>
+{% endblock content %}
+
+<!--=============== MAIN JS ===============-->
+{% block javascript %}
+
+{% endblock javascript %}

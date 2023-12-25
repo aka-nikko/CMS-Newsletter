@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!--=============== STYLESHEETS ===============-->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+<!--=============== CONTENT ===============-->
+{% block content %}
+<section class="nic-publish-banner">
+    <h1>Sign Up</h1>
+</section>
+<div class="nic-login-container">
+    <form method="POST">
+        {% csrf_token %}
+        <img class="mb-4 nic-login-logo" src="{% static 'images/nikko.png' %}" alt="">
+        <h1 class="h3 mb-3 fw-normal nic-login-text">Create An Account</h1>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="first_name" placeholder="First Name" required>
+            <label for="floatingInput">First Name</label>
+        </div>
+        <br>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="last_name" placeholder="Last Name" required>
+            <label for="floatingInput">Last Name</label>
+        </div>
+        <br>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Username" required>
+            <label for="floatingInput">Username</label>
+        </div>
+        <br>
+        <div class="form-floating">
+            <input type="email" class="form-control" id="floatingInput" name="email" placeholder="Email" required>
+            <label for="floatingInput">Email</label>
+        </div>
+        <br>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword1" name="password1" placeholder="Password" required>
+            <label for="floatingPassword1">Password</label>
+        </div>
+        <br>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword2" name="password2" placeholder="Confirm Password" required>
+            <label for="floatingPassword2">Confirm Password</label>
+        </div>
+        <p id="passwordMismatchMessage" class="text-danger" style="display: none;">Passwords do not match</p>
+        <br>
+        <button class="btn btn-primary w-100 py-2" type="submit" id="signup-button">Sign Up</button>
+        <p class="mt-5 mb-3 text-body-secondary"></p>
+    </form>
+</div>
+{% endblock content %}
+
+<!--=============== MAIN JS ===============-->
+{% block javascript %}
+
+{% endblock javascript %}

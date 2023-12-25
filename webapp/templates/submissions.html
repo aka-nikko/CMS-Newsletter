@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!--=============== STYLESHEETS ===============-->
+{% block stylesheets %}
+<style>
+  .toggler-wrapper {
+	display: block;
+	width: 45px;
+	height: 25px;
+	cursor: pointer;
+	position: relative;
+}
+
+.toggler-wrapper input[type="checkbox"] {
+	display: none;
+}
+
+.toggler-wrapper input[type="checkbox"]:checked+.toggler-slider {
+	background-color: rgb(36, 131, 197);
+}
+
+.toggler-wrapper .toggler-slider {
+	background-color: #ccc;
+	position: absolute;
+	border-radius: 100px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-transition: all 300ms ease;
+	transition: all 300ms ease;
+}
+
+.toggler-wrapper .toggler-knob {
+	position: absolute;
+	-webkit-transition: all 300ms ease;
+	transition: all 300ms ease;
+}
+
+.toggler-wrapper.style-3 input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
+	left: calc(100% - 19px - 3px);
+}
+
+.toggler-wrapper.style-3 .toggler-knob {
+	width: calc(25px + 6px);
+	height: calc(25px + 6px);
+	border-radius: 50%;
+	left: -3px;
+	top: -3px;
+	background-color: #fff;
+	-webkit-box-shadow: 0 2px 6px rgba(153, 153, 153, 0.75);
+	box-shadow: 0 2px 6px rgba(153, 153, 153, 0.75);
+}
+
+
+</style>
+{% endblock stylesheets %}
+
+<!--=============== CONTENT ===============-->
+{% block content %}
+<section class="nic-publish-banner">
+    <h1>{% if user.is_superuser %}Submissions by Users{% else %}Your Submissions{% endif %}</h1>
+</section>
+<div class="nic-newsletter">
+    <h2 style="display: flex;justify-content: center;">A Quarterly News Letter by NIKKO</h2><br>
+    <div class="nic-newsletter-filter" style="display: flex;justify-content: center;">
+      <form method="GET">
+          <div class="input-group">
+            <span class="btn btn-primary nic-submission-btn-text">Quarter</span>
+            <div class="nic-submission-quarter">
+              <select name="quarter" id="quarter" style="width: 100px;" class="form-control" required>
+                  <option value="0">Select</option>
+                  {% for item in quarters %}
+                  <option value="{{ item.id }}">{{ item.name }}</option>
+                  {% endfor %}
+              </select>
+            </div>
+            <div class="nic-submission-button">
+              <input type="submit" name="Submit" value="Apply Filter" style="margin-left: 50px;" class="btn btn-primary form-control" />
+            </div>
+            <div class="nic-submission-button">
+              <a href="/submissions" class="btn btn-primary form-control" style="margin-left: 50px;">Reset</a>
+            </div>
+        </div><br><br>
+      </form>
+    </div>
+    {% if data %}
+    <form method="POST">
+      {% csrf_token %}
+          {% for submission in data %}
+          <div class="col-md-6 nic-submissions-cont">
+            {% if user.is_superuser %}
+            
+          <label class="toggler-wrapper style-3" style="float: left;display: flex;margin: 10px;">
+            <input type="checkbox" name="selected_submissions" value="{{ submission.id }}" {% if submission.is_sent_for_editing %}checked="checked"{% endif %}>
+            <div class="toggler-slider">
+              <div class="toggler-knob"></div>
+            </div>
+          </label>
+
+            {% endif %}
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                  <div class="col p-4 d-flex flex-column position-static" style="padding: 10px !important;">
+                      {% if user.is_superuser %}
+                      <strong class="d-inline-block mb-2 text-primary-emphasis" style="margin: 0 !important;">Submitted By: {{ submission.user.first_name }} {{ submission.user.last_name }} ({{ submission.quarter }})</strong>
+                      {% else %}
+                      <strong class="d-inline-block mb-2 text-primary-emphasis" style="margin: 0 !important;">{{ submission.quarter }}</strong>
+                      {% endif %}
+                      <strong class="mb-0">{{ submission.topic }}: {{ submission.title }}</strong>
+                      <p class="mb-0">{{ submission.subtext }}</p>
+                      <div class="mb-1 text-body-secondary" style="font-size: small;">{{ submission.upload_time }}</div>
+                      <a href="{% url 'submission' submission.id %}" class="icon-link gap-1 icon-link-hover stretched-link"></a>
+                  </div>
+                  <div class="col-auto d-none d-lg-block">
+                      <img class="nic-newsletter-img" style="height: 115px;" src="{{ submission.thumbnail.url }}">
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      {% if user.is_superuser %}
+      <div class="nic-submission-button" style="display: flex;justify-content: center;">
+        <button type="submit" name="send_selected" class="btn btn-primary">Send for Editing</button>
+        <button type="submit" name="reset" class="btn btn-primary" style="margin-left: 20px;">Reset</button>
+      </div>
+      {% endif %}
+  </form>
+    {% else %}
+    <div class="nic-newsletter-empty">
+    <h3>No Submissions Here</h3>
+    </div>
+    {% endif %}
+
+
+
+</div>
+{% endblock content %}
+
+<!--=============== MAIN JS ===============-->
+{% block javascript %}
+
+{% endblock javascript %}

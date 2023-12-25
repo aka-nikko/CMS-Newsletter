@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!--=============== STYLESHEETS ===============-->
+{% block stylesheets %}
+
+{% endblock stylesheets %}
+
+<!--=============== CONTENT ===============-->
+{% block content %}
+<section class="nic-publish-banner">
+    <h1>Sign In</h1>
+</section>
+<div class="nic-login-container">
+    <form method="POST">
+        {% csrf_token %}
+        <img class="mb-4 nic-login-logo" src="{% static 'images/nikko.png' %}" alt="">
+        <h1 class="h3 mb-3 fw-normal nic-login-text">Please Sign In</h1>
+
+        <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Username" required>
+        <label for="floatingInput">Username</label>
+        </div>
+        <br>
+        <div class="form-floating">
+        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
+        <label for="floatingPassword">Password</label>
+        </div>
+        <br>
+        <div class="form-check text-start my-3">
+        <input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">Remember me</label>
+        </div>
+        <button class="btn btn-primary w-100 py-2" type="submit">Sign In</button>
+        <p class="mt-5 mb-3 text-body-secondary"></p>
+    </form>
+</div>
+{% endblock content %}
+
+<!--=============== MAIN JS ===============-->
+{% block javascript %}
+
+{% endblock javascript %}
